@@ -67,6 +67,25 @@ docker-compose up -d
 App should be available on [localhost:9090](http://localhost:9090).
 
 
+## :video_game: Minecraft server panel
+
+This fork adds a homepage panel showing the state of a Minecraft server, intended for a server running on the same machine. It queries the server over the [Server List Ping](https://minecraft.wiki/w/Java_Edition_protocol#Status_Request) protocol — the same status handshake the multiplayer server list uses — so it works with any vanilla-compatible server (vanilla, NeoForge, Fabric, Paper, ...) with no RCON, mods or extra dependencies.
+
+The panel shows online/max player count, player names, server version and MOTD, and falls back to "Server offline" when the server is unreachable.
+
+Configuration (defaults shown):
+
+```json
+"minecraft": {
+    "enabled": true,
+    "address": "127.0.0.1",
+    "port": 25565
+}
+```
+
+As with every other option, these keys can also be set via environment variables (`STATUS_MINECRAFT_PORT`) or command line arguments (`--minecraft-port`).
+
+
 ## :wrench: Configuration
 
 Status can be configured in multiple ways:
