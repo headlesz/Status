@@ -61,6 +61,20 @@ CONFIG_DEFAULT = {
 			"value": []
 		}
 	},
+	"minecraft": {
+		"enabled": {
+			"value": True,
+			"desc": "show Minecraft server status on the homepage"
+		},
+		"address": {
+			"value": "127.0.0.1",
+			"desc": "Minecraft server address to query"
+		},
+		"port": {
+			"value": 25565,
+			"desc": "Minecraft server port"
+		}
+	},
 	"misc": {
 		"debug": {
 			"value": False,

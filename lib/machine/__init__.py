@@ -1,8 +1,11 @@
+import asyncio
+
 from .cpu import CPU
 from .memory import Memory
 from .storage import Storage
 from .network import Network
 from .host import Host
+from .minecraft import Minecraft
 
 
 class Machine:
@@ -13,12 +16,18 @@ class Machine:
 		self.storage = Storage()
 		self.network = Network()
 		self.host = Host()
+		self.minecraft = Minecraft()
 
 	async def get_full_info(self):
+		cpu, minecraft = await asyncio.gather(
+			self.cpu.get_full_info(),
+			self.minecraft.get_status()
+		)
 		return {
-			"cpu": (await self.cpu.get_full_info()),
+			"cpu": cpu,
 			"memory": self.memory.get_usage(),
 			"storage": self.storage.get_usage(),
 			"network": self.network.get_net(),
-			"host": self.host.get_host()
+			"host": self.host.get_host(),
+			"minecraft": minecraft
 		}

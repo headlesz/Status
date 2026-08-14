@@ -159,6 +159,39 @@ function updateNet(net_last, net) {
 }
 
 
+function updateMinecraft(mc) {
+	let item = get("main-minecraft-item")
+	if (!mc) {
+		item.style.display = "none"
+		return
+	}
+	item.style.display = ""
+
+	if (!mc.online) {
+		set("main-minecraft", "Server offline")
+		mkItem("minecraft-list", "power_settings_new", "Status", "Offline")
+		rmItem("minecraft-list", "group")
+		rmItem("minecraft-list", "chat")
+		return
+	}
+
+	set("main-minecraft", `${mc.players} of ${mc.max_players} player${s(mc.max_players)} online`)
+
+	let _values_status = []
+	_values_status.addNode("Online")
+	_values_status.addNode(mc.version, mc.version)
+	mkItem("minecraft-list", "power_settings_new", "Status", _values_status)
+
+	let _values_players = []
+	_values_players.addNode(`${mc.players} of ${mc.max_players}`)
+	_values_players.addNode(mc.player_names.join(", "), mc.player_names.length > 0)
+	mkItem("minecraft-list", "group", "Players online", _values_players)
+
+	if (mc.motd) mkItem("minecraft-list", "chat", "MOTD", mc.motd)
+	else rmItem("minecraft-list", "chat")
+}
+
+
 function updateHost(host) {
 	set("main-host", host.os)
 	mkItem("host-list", "text_format", "Device name", host.hostname)
