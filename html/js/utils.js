@@ -122,7 +122,7 @@ function mkItem(target, icon, name, values, div_id) {
 		_text.appendChild(_name)
 		for (let _ of values) {
 			let val = mkDiv({className: "value"})
-			divs.append(val)
+			if (!item) divs.append(val)
 			_text.appendChild(val)
 		}
 		_item.appendChild(_icon)
@@ -133,6 +133,11 @@ function mkItem(target, icon, name, values, div_id) {
 	for (let i = 0; i < divs.length; i++) {
 		divs[i].innerText = values[i]
 	}
+}
+
+function rmItem(target, div_id) {
+	let item = get(`${target}-${div_id}`)
+	if (item) item.remove()
 }
 
 function mkBar(div, progress, value, unit, right, desc) {
